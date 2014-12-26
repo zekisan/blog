@@ -3,7 +3,40 @@ html
   head
     title Blog
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'application', 'http://fonts.googleapis.com/css?family=Raleway:400,700'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
-    = yield
+
+    #sidebar
+      #logo
+        = link_to root_path do |variable|
+          =image_tag "logo.svg"
+
+      ul
+        li.category Website
+        li = link_to "Blog", root_path
+        li About
+
+      ul
+        li.category Social
+        li
+          a href="https://www.google.com.br" Google
+        li
+          a href="https://www.twitter.com" Twitter
+
+      p.sign_in Admin Login
+
+    #main_content
+      #header
+        p All Posts
+
+        .buttons
+          button.button
+            = link_to "New Post", new_post_path
+          button.button Log Out
+
+      - flash.each do |name,msg|
+        = content_tag(:div, msg, class: "alert")
+
+      = yield
